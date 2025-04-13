@@ -1,12 +1,14 @@
+// Load the data from data.json
 fetch('data.json')
   .then(response => response.json())
   .then(data => {
-    // Atualiza o título da aba
+    // Update the page title based on JSON
     document.title = data.header.pageTitle;
 
-    // Info Cards
+    // Populate the Info Cards section (right column)
     const infoCardContainer = document.querySelector('.col-lg-4');
-    infoCardContainer.innerHTML = '';
+    infoCardContainer.innerHTML = ''; // Clear existing cards
+
     data.infoCards.forEach(card => {
       const div = document.createElement('div');
       div.className = 'info-box bg-light shadow-sm p-3 rounded mb-2';
@@ -14,29 +16,19 @@ fetch('data.json')
       infoCardContainer.appendChild(div);
     });
 
-    // Tasks
+    // Populate the Tasks section (right card list)
     const taskList = document.querySelectorAll('.list-group')[1];
-    taskList.innerHTML = '';
+    taskList.innerHTML = ''; // Clear existing list
+
     data.tasks.forEach(task => {
       const li = document.createElement('li');
       li.className = 'list-group-item d-flex justify-content-between';
 
+      // Checkbox element
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       if (task.checked) checkbox.checked = true;
 
-      const badge = document.createElement('span');
-      badge.className = 'badge';
-      if (task.status === "URGENT") badge.classList.add('bg-warning');
-      if (task.status === "NEW") badge.classList.add('bg-success');
-      if (task.status === "DEFAULT") badge.classList.add('bg-secondary');
-      badge.textContent = task.status;
+      // Status badge (e.g., URGENT, NEW, DEFAULT)
+      const badge = document
 
-      li.appendChild(checkbox);
-      li.appendChild(document.createTextNode(` ${task.description} `));
-      li.appendChild(badge);
-
-      taskList.appendChild(li);
-    });
-  })
-  .catch(error => console.error('Erro ao carregar JSON:', error));
