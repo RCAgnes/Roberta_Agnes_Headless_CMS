@@ -1,0 +1,38 @@
+{
+  "header": {
+    "pageTitle": "Roberta_Agnes Headless CMS"
+  },
+  "infoCards": [
+    {
+      "title": "Resolved",
+      "value": "449"
+    },
+    {
+      "title": "Avg First Response",
+      "value": "33m"
+    },
+    {
+      "title": "Avg Resolution",
+      "value": "3h 8m"
+    },
+    {
+      "title": "Resolution with SLA",
+      "value": "94%"
+    }
+  ],
+  "tasks": [
+    {
+      "description": "Finish ticket update",
+      "status": "URGENT"
+    },
+    {
+      "description": "Create new ticket example",
+      "status": "NEW"
+    },
+    {
+      "description": "Update ticket report",
+      "status": "DEFAULT",
+      "checked": true
+    }
+  ]
+}
