@@ -1,3 +1,5 @@
+// This script fetches data from a JSON file and populates the HTML elements with the data.
+// It uses async/await for handling asynchronous operations and error handling with try/catch.
 async function loadContent() {
   try {
     const response = await fetch('data.json');
