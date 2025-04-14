@@ -1,14 +1,14 @@
-// Load the data from data.json
-fetch('data.json')
-  .then(response => response.json())
-  .then(data => {
-    // Update the page title based on JSON
+async function loadContent() {
+  try {
+    const response = await fetch('data.json');
+    const data = await response.json();
+
+    // Set page title
     document.title = data.header.pageTitle;
 
-    // Populate the Info Cards section (right column)
+    // Info Cards
     const infoCardContainer = document.querySelector('.col-lg-4');
-    infoCardContainer.innerHTML = ''; // Clear existing cards
-
+    infoCardContainer.innerHTML = '';
     data.infoCards.forEach(card => {
       const div = document.createElement('div');
       div.className = 'info-box bg-light shadow-sm p-3 rounded mb-2';
@@ -16,49 +16,35 @@ fetch('data.json')
       infoCardContainer.appendChild(div);
     });
 
-    // Populate the Tasks section (right card list)
+    // Tasks
     const taskList = document.querySelectorAll('.list-group')[1];
-    taskList.innerHTML = ''; // Clear existing list
-
+    taskList.innerHTML = '';
     data.tasks.forEach(task => {
       const li = document.createElement('li');
       li.className = 'list-group-item d-flex justify-content-between';
 
-      // Checkbox element
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       if (task.checked) checkbox.checked = true;
 
-      // Status badge (e.g., URGENT, NEW, DEFAULT)
-      const badge = document
+      const badge = document.createElement('span');
+      badge.className = 'badge';
+      if (task.status === "URGENT") badge.classList.add('bg-warning');
+      if (task.status === "NEW") badge.classList.add('bg-success');
+      if (task.status === "DEFAULT") badge.classList.add('bg-secondary');
+      badge.textContent = task.status;
 
-<script>
-  const ctx = document.getElementById('myChart').getContext('2d');
+      li.appendChild(checkbox);
+      li.appendChild(document.createTextNode(` ${task.description} `));
+      li.appendChild(badge);
 
-  const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: 'Sample Data',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.5)',
-          'rgba(54, 162, 235, 0.5)',
-          'rgba(255, 206, 86, 0.5)',
-          'rgba(75, 192, 192, 0.5)',
-          'rgba(153, 102, 255, 0.5)',
-          'rgba(255, 159, 64, 0.5)'
-        ]
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
+      taskList.appendChild(li);
+    });
+
+  } catch (error) {
+    console.error('Error loading JSON:', error);
+  }
+}
+
+// Run the function
+loadContent();
