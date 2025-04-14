@@ -9,8 +9,14 @@ async function loadContent() {
     document.title = data.header.pageTitle;
 
     // Info Cards
-    const infoCardContainer = document.querySelector('.col-lg-4');
-    infoCardContainer.innerHTML = '';
+    const infoCardContainer = document.getElementById('info-cards');
+    if (infoCardContainer) {
+      infoCardContainer.innerHTML = '';
+    } else {
+      console.error('Element with id "info-cards" not found.');
+      return;
+    }
+    }
     data.infoCards.forEach(card => {
       const div = document.createElement('div');
       div.className = 'info-box bg-light shadow-sm p-3 rounded mb-2';
